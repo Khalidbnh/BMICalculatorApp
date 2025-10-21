@@ -2,4 +2,13 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="purple_500">#FF6200EE</color>
+    
+    <color name="background_component">#282945</color>
+    <color name="background_component_selected">#141735</color>
+    <color name="background_app">#0F0B21</color>
+    <color name="background_button">#00BCD4</color>
+    <color name="title_text">#FF8D8E98</color>
+
+
 </resources>
