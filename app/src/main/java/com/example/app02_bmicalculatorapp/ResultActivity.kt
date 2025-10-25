@@ -20,7 +20,7 @@ class ResultActivity : AppCompatActivity() {
 
         val bmi = intent.getFloatExtra("bmi Res", 0f)
         println("DEBUG -- Received BMI: $bmi")
-        textResult.text = "Your BMI: %.2f".format(bmi)
+        textResult.text = "%.2f".format(bmi)
 
         val message = when{
             bmi < 18.5 -> "Underweight"
@@ -28,6 +28,7 @@ class ResultActivity : AppCompatActivity() {
             bmi < 30 -> "Overweight"
             else -> "Obese"
         }
+
         textAdvice.text = message
 
         buttonBack.setOnClickListener {
