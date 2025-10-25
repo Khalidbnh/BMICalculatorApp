@@ -8,11 +8,16 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.slider.RangeSlider
 import kotlin.text.isNotEmpty
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var txt2Weight: TextView
+    private var currentWeight: Int = 60
+    private lateinit var txtAge: TextView
+    private var currentAge: Int = 20
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -24,23 +29,46 @@ class MainActivity : AppCompatActivity() {
         val txtvHeight = findViewById<TextView>(R.id.txtvHeight)
         val rsHeight = findViewById<RangeSlider>(R.id.rsHeight)
 
+        val btnSubWeight = findViewById<FloatingActionButton>(R.id.btnSubWeight)
+        val btnPlusWeight = findViewById<FloatingActionButton>(R.id.btnPlusWeight)
+        txt2Weight = findViewById(R.id.txt2Weight)
+        txtAge = findViewById(R.id.txtAge)
+        val btnSubAge = findViewById<FloatingActionButton>(R.id.btnSubAge)
+        val btnPlusAge = findViewById<FloatingActionButton>(R.id.btnPlusAge)
+
         rsHeight.addOnChangeListener { _, value, _ ->
             val height = value.toInt()
             txtvHeight.text = "$height CM"
         }
 
+        btnPlusWeight.setOnClickListener {
+            currentWeight += 1
+            setWeight()
+        }
+
+        btnSubWeight.setOnClickListener {
+            currentWeight -= 1
+            setWeight()
+        }
+
+        btnSubAge.setOnClickListener {
+            currentAge -= 1
+            setAge()
+        }
+
+        btnPlusAge.setOnClickListener {
+            currentAge += 1
+            setAge()
+        }
+
+
         buttonCalculate.setOnClickListener {
-            if (textHeight.text.isNotEmpty() && textWeight.text.isNotEmpty()) {
-                val weight = textWeight.text.toString().toFloat()
-                val height = textHeight.text.toString().toFloat()
+                val weight = txt2Weight.text.toString().toFloat()
+                val height = 172.toFloat()
                 val bmi = calculateBmi(weight,height)
                 val intent = Intent(this, ResultActivity::class.java)
                 intent.putExtra("bmi Res", bmi) // Float
                 startActivity(intent)
-            } else{
-                textHeight.error = "Please enter valid numbers"
-                textWeight.error = "Please enter valid numbers"
-                }
             }
     }
     fun calculateBmi(weight: Float, height: Float): Float {
@@ -48,5 +76,13 @@ class MainActivity : AppCompatActivity() {
         val bmi = weight.toFloat() / (heighttometers * heighttometers)
 
         return bmi
+    }
+
+    private fun setWeight(){
+        txt2Weight.text = currentWeight.toString()
+    }
+
+    private fun setAge(){
+        txtAge.text = currentAge.toString()
     }
 }
