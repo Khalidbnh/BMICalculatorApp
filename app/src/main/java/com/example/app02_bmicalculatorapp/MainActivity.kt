@@ -18,12 +18,11 @@ class MainActivity : AppCompatActivity() {
     private var currentWeight: Int = 60
     private lateinit var txtAge: TextView
     private var currentAge: Int = 20
+    private var currentHeight: Int = 172
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val textHeight = findViewById<EditText>(R.id.txtHeight)
-        val textWeight = findViewById<EditText>(R.id.txtWeight)
         val buttonCalculate= findViewById<TextView>(R.id.btnCalculate)
 
         val txtvHeight = findViewById<TextView>(R.id.txtvHeight)
@@ -36,9 +35,10 @@ class MainActivity : AppCompatActivity() {
         val btnSubAge = findViewById<FloatingActionButton>(R.id.btnSubAge)
         val btnPlusAge = findViewById<FloatingActionButton>(R.id.btnPlusAge)
 
+        rsHeight.setValues(172f)
         rsHeight.addOnChangeListener { _, value, _ ->
-            val height = value.toInt()
-            txtvHeight.text = "$height CM"
+            currentHeight = value.toInt()
+            txtvHeight.text = "$currentHeight CM"
         }
 
         btnPlusWeight.setOnClickListener {
@@ -64,7 +64,7 @@ class MainActivity : AppCompatActivity() {
 
         buttonCalculate.setOnClickListener {
                 val weight = txt2Weight.text.toString().toFloat()
-                val height = 172.toFloat()
+                val height = currentHeight.toFloat()
                 val bmi = calculateBmi(weight,height)
                 val intent = Intent(this, ResultActivity::class.java)
                 intent.putExtra("bmi Res", bmi) // Float
