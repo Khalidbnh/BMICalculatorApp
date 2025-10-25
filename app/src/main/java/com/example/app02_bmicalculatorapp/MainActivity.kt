@@ -8,9 +8,11 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.google.android.material.slider.RangeSlider
 import kotlin.text.isNotEmpty
 
 class MainActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -18,6 +20,14 @@ class MainActivity : AppCompatActivity() {
         val textHeight = findViewById<EditText>(R.id.txtHeight)
         val textWeight = findViewById<EditText>(R.id.txtWeight)
         val buttonCalculate= findViewById<TextView>(R.id.btnCalculate)
+
+        val txtvHeight = findViewById<TextView>(R.id.txtvHeight)
+        val rsHeight = findViewById<RangeSlider>(R.id.rsHeight)
+
+        rsHeight.addOnChangeListener { _, value, _ ->
+            val height = value.toInt()
+            txtvHeight.text = "$height CM"
+        }
 
         buttonCalculate.setOnClickListener {
             if (textHeight.text.isNotEmpty() && textWeight.text.isNotEmpty()) {
